@@ -208,8 +208,8 @@ export function ClothingGallery({ selectedIds, onSelect }: ClothingGalleryProps)
                 
                 {/* Selection indicator */}
                 {isSelected && (
-                  <div className="absolute top-2 right-2 w-7 h-7 gradient-primary rounded-full flex items-center justify-center shadow-lg animate-[pulse_2s_ease-in-out_infinite]">
-                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                  <div className="absolute top-2 right-2 w-7 h-7 gradient-primary rounded-full flex items-center justify-center shadow-lg animate-pulse-selection">
+                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>

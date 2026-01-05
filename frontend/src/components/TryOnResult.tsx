@@ -84,9 +84,9 @@ export function TryOnResult({ originalImage, resultImage, selectedItems, onReset
               className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize z-10"
               style={{ left: `${sliderPosition}%` }}
             >
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 gradient-primary rounded-full shadow-lg flex items-center justify-center">
-                <ChevronLeft className="w-4 h-4 text-white -ml-1" />
-                <ChevronRight className="w-4 h-4 text-white -mr-1" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 gradient-primary rounded-full shadow-lg flex items-center justify-center gap-0">
+                <ChevronLeft className="w-4 h-4 text-white" />
+                <ChevronRight className="w-4 h-4 text-white" />
               </div>
             </div>
             {/* Slider input */}

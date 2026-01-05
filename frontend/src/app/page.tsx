@@ -123,7 +123,7 @@ export default function Home() {
       <div className="container mx-auto px-4 py-6 sm:py-8">
         {/* Error Message */}
         {state.error && (
-          <div className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl text-red-700 shadow-card animate-[shake_0.5s_ease-in-out]">
+          <div className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl text-red-700 shadow-card animate-shake">
             <div className="flex items-center gap-2">
               <span className="text-lg">⚠️</span>
               <span className="font-medium">{state.error}</span>
