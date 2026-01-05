@@ -117,22 +117,30 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-gradient-to-b from-purple-50/30 via-white to-pink-50/30">
       <Header />
       
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-6 sm:py-8">
         {/* Error Message */}
         {state.error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-            {state.error}
+          <div className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl text-red-700 shadow-card animate-shake">
+            <div className="flex items-center gap-2">
+              <span className="text-lg">⚠️</span>
+              <span className="font-medium">{state.error}</span>
+            </div>
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Left Column - Image Upload */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24">
-              <h2 className="text-lg font-semibold mb-4">1. 사진 업로드</h2>
+            <div className="lg:sticky lg:top-24 space-y-6">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full gradient-primary flex items-center justify-center text-white font-bold text-sm shadow-md">
+                  1
+                </div>
+                <h2 className="text-lg font-bold text-gray-900">사진 업로드</h2>
+              </div>
               <ImageUploader
                 preview={state.userImagePreview}
                 onUpload={handleImageUpload}
@@ -141,8 +149,13 @@ export default function Home() {
               
               {/* Selected Items */}
               {state.selectedClothing.length > 0 && (
-                <div className="mt-6">
-                  <h2 className="text-lg font-semibold mb-4">선택한 의류</h2>
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-8 h-8 rounded-full gradient-primary flex items-center justify-center text-white font-bold text-sm shadow-md">
+                      ✓
+                    </div>
+                    <h2 className="text-lg font-bold text-gray-900">선택한 의류</h2>
+                  </div>
                   <SelectedItems
                     items={state.selectedClothing}
                     onRemove={handleRemoveClothing}
@@ -154,9 +167,10 @@ export default function Home() {
               <button
                 onClick={handleTryOn}
                 disabled={!state.userImage || state.selectedClothing.length === 0 || state.isProcessing}
-                className="mt-6 w-full py-3 px-4 bg-primary text-primary-foreground rounded-lg font-medium
+                className="w-full py-3.5 px-4 gradient-primary text-white rounded-xl font-bold text-base
                          disabled:opacity-50 disabled:cursor-not-allowed
-                         hover:opacity-90 transition-opacity"
+                         hover:shadow-lg transition-all active:scale-95 shadow-md
+                         disabled:hover:shadow-md disabled:active:scale-100"
               >
                 {state.isProcessing ? (
                   <span className="flex items-center justify-center gap-2">
@@ -167,17 +181,20 @@ export default function Home() {
                     처리 중...
                   </span>
                 ) : (
-                  '🎨 가상 피팅 시작'
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="text-xl">✨</span>
+                    가상 피팅 시작
+                  </span>
                 )}
               </button>
 
               {state.resultImage && (
                 <button
                   onClick={handleReset}
-                  className="mt-3 w-full py-2 px-4 border border-gray-300 rounded-lg text-gray-700 font-medium
-                           hover:bg-gray-50 transition-colors"
+                  className="w-full py-3 px-4 border-2 border-gray-300 rounded-xl text-gray-700 font-semibold
+                           hover:bg-gray-50 hover:border-gray-400 transition-all active:scale-95"
                 >
-                  처음부터 다시하기
+                  🔄 처음부터 다시하기
                 </button>
               )}
             </div>
@@ -194,7 +211,12 @@ export default function Home() {
               />
             ) : (
               <>
-                <h2 className="text-lg font-semibold mb-4">2. 의류 선택</h2>
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="w-8 h-8 rounded-full gradient-primary flex items-center justify-center text-white font-bold text-sm shadow-md">
+                    2
+                  </div>
+                  <h2 className="text-lg font-bold text-gray-900">의류 선택</h2>
+                </div>
                 <ClothingGallery
                   selectedIds={state.selectedClothing.map(c => c.id)}
                   onSelect={handleSelectClothing}

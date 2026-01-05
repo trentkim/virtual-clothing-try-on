@@ -152,16 +152,16 @@ export function ClothingGallery({ selectedIds, onSelect }: ClothingGalleryProps)
   return (
     <div>
       {/* Category Tabs */}
-      <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+      <div className="flex gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide">
         {CATEGORIES.map(cat => (
           <button
             key={cat.value}
             onClick={() => setActiveCategory(cat.value)}
             className={cn(
-              "px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors",
+              "px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all shadow-sm",
               activeCategory === cat.value
-                ? "bg-primary text-primary-foreground"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                ? "gradient-primary text-white shadow-md scale-105"
+                : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
             )}
           >
             {cat.label}
@@ -170,7 +170,7 @@ export function ClothingGallery({ selectedIds, onSelect }: ClothingGalleryProps)
       </div>
 
       {/* Items Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
         {filteredItems.map(item => {
           const isSelected = selectedIds.includes(item.id);
           
@@ -179,18 +179,18 @@ export function ClothingGallery({ selectedIds, onSelect }: ClothingGalleryProps)
               key={item.id}
               onClick={() => onSelect(item)}
               className={cn(
-                "group cursor-pointer rounded-lg overflow-hidden border-2 transition-all",
+                "group cursor-pointer rounded-xl overflow-hidden border-2 transition-all shadow-card hover:shadow-soft active:scale-95",
                 isSelected
-                  ? "border-primary ring-2 ring-primary/20"
-                  : "border-gray-200 hover:border-gray-300"
+                  ? "border-purple-500 ring-2 ring-purple-200 shadow-soft"
+                  : "border-gray-200 hover:border-purple-300"
               )}
             >
               {/* Image */}
-              <div className="relative aspect-[3/4] bg-gray-100">
+              <div className="relative aspect-[3/4] bg-gradient-to-br from-gray-50 to-gray-100">
                 <img
                   src={item.image_url}
                   alt={item.name_ko}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = 'none';
                     (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
@@ -198,7 +198,7 @@ export function ClothingGallery({ selectedIds, onSelect }: ClothingGalleryProps)
                 />
                 {/* Placeholder for missing images */}
                 <div className="absolute inset-0 flex items-center justify-center hidden">
-                  <div className="text-6xl">
+                  <div className="text-5xl sm:text-6xl">
                     {item.category === 'top' && '👕'}
                     {item.category === 'bottom' && '👖'}
                     {item.category === 'dress' && '👗'}
@@ -208,16 +208,16 @@ export function ClothingGallery({ selectedIds, onSelect }: ClothingGalleryProps)
                 
                 {/* Selection indicator */}
                 {isSelected && (
-                  <div className="absolute top-2 right-2 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  <div className="absolute top-2 right-2 w-7 h-7 gradient-primary rounded-full flex items-center justify-center shadow-lg animate-pulse-selection">
+                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
                 )}
 
                 {/* Category badge */}
                 <div className="absolute bottom-2 left-2">
-                  <span className="px-2 py-1 bg-black/60 text-white text-xs rounded-full">
+                  <span className="px-2.5 py-1 bg-black/70 backdrop-blur-sm text-white text-xs font-medium rounded-full">
                     {getCategoryNameKo(item.category)}
                   </span>
                 </div>
@@ -225,23 +225,23 @@ export function ClothingGallery({ selectedIds, onSelect }: ClothingGalleryProps)
 
               {/* Info */}
               <div className="p-3 bg-white">
-                <p className="text-xs text-gray-500 mb-1">{item.brand}</p>
-                <h3 className="text-sm font-medium text-gray-900 mb-1 line-clamp-1">
+                <p className="text-xs text-gray-500 mb-1 font-medium">{item.brand}</p>
+                <h3 className="text-sm font-semibold text-gray-900 mb-1.5 line-clamp-1">
                   {item.name_ko}
                 </h3>
                 {item.price && (
-                  <p className="text-sm font-semibold text-gray-900">
+                  <p className="text-sm font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                     {formatPrice(item.price)}
                   </p>
                 )}
                 <div className="flex gap-1 mt-2">
                   {item.sizes.slice(0, 4).map(size => (
-                    <span key={size} className="text-xs text-gray-400">
+                    <span key={size} className="text-xs text-gray-400 font-medium">
                       {size}
                     </span>
                   ))}
                   {item.sizes.length > 4 && (
-                    <span className="text-xs text-gray-400">+{item.sizes.length - 4}</span>
+                    <span className="text-xs text-gray-400 font-medium">+{item.sizes.length - 4}</span>
                   )}
                 </div>
               </div>
@@ -251,8 +251,9 @@ export function ClothingGallery({ selectedIds, onSelect }: ClothingGalleryProps)
       </div>
 
       {filteredItems.length === 0 && (
-        <div className="text-center py-12 text-gray-500">
-          해당 카테고리에 상품이 없습니다.
+        <div className="text-center py-16 text-gray-500">
+          <div className="text-5xl mb-4">🔍</div>
+          <p className="text-sm">해당 카테고리에 상품이 없습니다.</p>
         </div>
       )}
     </div>

@@ -55,20 +55,23 @@ export function ImageUploader({ preview, onUpload, onClear }: ImageUploaderProps
 
   if (preview) {
     return (
-      <div className="relative rounded-lg overflow-hidden border border-gray-200 bg-white">
+      <div className="relative rounded-xl overflow-hidden border-2 border-purple-200 bg-white shadow-card">
         <img
           src={preview}
           alt="Uploaded"
-          className="w-full h-auto max-h-[400px] object-contain"
+          className="w-full h-auto max-h-[350px] sm:max-h-[400px] object-contain bg-gray-50"
         />
         <button
           onClick={onClear}
-          className="absolute top-2 right-2 p-1.5 bg-white/90 hover:bg-white rounded-full shadow-md transition-colors"
+          className="absolute top-3 right-3 p-2 bg-white/95 hover:bg-white rounded-full shadow-lg transition-all hover:scale-110"
         >
           <X className="w-4 h-4 text-gray-700" />
         </button>
-        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
-          <p className="text-white text-sm">✅ 사진이 업로드되었습니다</p>
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 via-black/40 to-transparent">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <p className="text-white text-sm font-medium">사진이 업로드되었습니다</p>
+          </div>
         </div>
       </div>
     );
@@ -77,10 +80,10 @@ export function ImageUploader({ preview, onUpload, onClear }: ImageUploaderProps
   return (
     <div
       className={cn(
-        "border-2 border-dashed rounded-lg p-8 text-center transition-colors",
+        "border-2 border-dashed rounded-xl p-6 sm:p-8 text-center transition-all",
         isDragging 
-          ? "border-primary bg-primary/5" 
-          : "border-gray-300 hover:border-gray-400 bg-white"
+          ? "border-purple-500 bg-purple-50 scale-[0.98]" 
+          : "border-gray-300 hover:border-purple-400 bg-white hover:bg-purple-50/30"
       )}
       onDrop={handleDrop}
       onDragOver={handleDragOver}
@@ -94,38 +97,38 @@ export function ImageUploader({ preview, onUpload, onClear }: ImageUploaderProps
         className="hidden"
       />
 
-      <div className="flex flex-col items-center gap-4">
-        <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
-          <ImageIcon className="w-8 h-8 text-gray-400" />
+      <div className="flex flex-col items-center gap-3 sm:gap-4">
+        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+          <ImageIcon className="w-7 h-7 sm:w-8 sm:h-8 text-purple-600" />
         </div>
         
         <div>
-          <p className="text-gray-700 font-medium mb-1">
+          <p className="text-gray-900 font-semibold mb-1 text-sm sm:text-base">
             사진을 업로드하세요
           </p>
-          <p className="text-sm text-gray-500">
+          <p className="text-xs sm:text-sm text-gray-500">
             전신 사진을 권장합니다
           </p>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
+            className="flex items-center justify-center gap-2 px-5 py-2.5 gradient-primary text-white rounded-xl text-sm font-semibold hover:opacity-90 transition-all hover:shadow-lg active:scale-95"
           >
             <Upload className="w-4 h-4" />
             파일 선택
           </button>
           <button
             onClick={() => {/* TODO: Implement webcam */}}
-            className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            className="flex items-center justify-center gap-2 px-5 py-2.5 border-2 border-gray-300 rounded-xl text-sm font-semibold text-gray-700 hover:border-purple-400 hover:bg-purple-50 transition-all active:scale-95"
           >
             <Camera className="w-4 h-4" />
             웹캠
           </button>
         </div>
 
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-xs text-gray-400 mt-1">
           PNG, JPG, WEBP (최대 10MB)
         </p>
       </div>
